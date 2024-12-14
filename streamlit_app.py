@@ -209,6 +209,9 @@ elif selected_tab == "Role Play":
     st.title("Role Play")
     st.write("This is the Role Play page.")
 
+elif selected_tab == "References":
+    st.title("References")
+
 elif selected_tab == "Thank You & Questions":
     st.title("Thank You & Questions")
     st.write("Thank you for participating! If you have questions, feel free to ask.")
