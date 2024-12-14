@@ -184,7 +184,7 @@ elif selected_tab == "Request Lessons":
             #lesson-image {{
                 width: 100%;
                 max-width: 600px;
-                margin: 20px auto;
+                margin: 30px auto;
                 display: block;
                 border: 2px solid black;
                 border-radius: 10px;
@@ -200,7 +200,37 @@ elif selected_tab == "Request Lessons":
     components.html(html_code, height=400, scrolling=False)
 
 elif selected_tab == "Raising Awareness":
-    st.title("Raising Awareness")
+    # Initialize session state to track button clicks
+    if "awareness_submitted" not in st.session_state:
+        st.session_state.awareness_submitted = False
+
+    # Conditionally display the title
+    if not st.session_state.awareness_submitted:
+        st.title("Raising Awareness")
+
+        # Inject CSS for default top margin
+        st.markdown(
+            """
+            <style>
+            .css-18e3th9 {
+                padding-top: 2rem;  /* Default top margin */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    else:
+        # Reduce top margin when the title is hidden
+        st.markdown(
+            """
+            <style>
+            .css-18e3th9 {
+                padding-top: 1rem;  /* Reduced top margin */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
     # Dropdown to choose between situations
     situation = st.selectbox(
@@ -212,6 +242,17 @@ elif selected_tab == "Raising Awareness":
             "Situation 4: Asking Lecturer to Repeat",
         ],
     )
+
+    # Common logic for submitting requests
+    def handle_request_submission(selected_requests, request_options):
+        if selected_requests:
+            st.write("**You selected the following options:**")
+            for request in selected_requests:
+                st.write(f"- **{request}**")
+                st.write(f"  - Comment: {request_options[request]}")
+            st.session_state.awareness_submitted = True
+        else:
+            st.warning("Please select at least one option before clicking the button.")
 
     # Situation 1: Loud Talking on a Bus
     if situation == "Situation 1: Loud Talking on a Bus":
@@ -242,14 +283,7 @@ elif selected_tab == "Raising Awareness":
                 selected_requests_1.append("Request 3: Could you lower the volume?")
             if request4:
                 selected_requests_1.append("Request 4: Please lower your volume.")
-
-            if selected_requests_1:
-                st.write("**You selected the following options:**")
-                for request in selected_requests_1:
-                    st.write(f"- **{request}**")
-                    st.write(f"  - Comment: {request_options_1[request]}")
-            else:
-                st.warning("Please select at least one option before clicking the button.")
+            handle_request_submission(selected_requests_1, request_options_1)
 
     # Situation 2: Spilled Coffee in a Café
     elif situation == "Situation 2: Spilled Coffee in a Café":
@@ -279,14 +313,7 @@ elif selected_tab == "Raising Awareness":
                 selected_requests_2.append("Request 3: Can you offer compensation?")
             if request4:
                 selected_requests_2.append("Request 4: It's okay, accidents happen.")
-
-            if selected_requests_2:
-                st.write("**You selected the following options:**")
-                for request in selected_requests_2:
-                    st.write(f"- **{request}**")
-                    st.write(f"  - Comment: {request_options_2[request]}")
-            else:
-                st.warning("Please select at least one option before clicking the button.")
+            handle_request_submission(selected_requests_2, request_options_2)
 
     # Situation 3: Requesting Coins for Coffee
     elif situation == "Situation 3: Requesting Coins for Coffee":
@@ -316,14 +343,7 @@ elif selected_tab == "Raising Awareness":
                 selected_requests_3.append("Request 3: Do you mind sharing some coins with me?")
             if request4:
                 selected_requests_3.append("Request 4: Can you spare some coins for coffee, please?")
-
-            if selected_requests_3:
-                st.write("**You selected the following options:**")
-                for request in selected_requests_3:
-                    st.write(f"- **{request}**")
-                    st.write(f"  - Comment: {request_options_3[request]}")
-            else:
-                st.warning("Please select at least one option before clicking the button.")
+            handle_request_submission(selected_requests_3, request_options_3)
 
     # Situation 4: Asking Lecturer to Repeat
     elif situation == "Situation 4: Asking Lecturer to Repeat":
@@ -352,28 +372,24 @@ elif selected_tab == "Raising Awareness":
                 selected_requests_4.append("Request 3: I didn’t quite catch that, could you go over it again?")
             if request4:
                 selected_requests_4.append("Request 4: Sorry, I missed that. Could you clarify, please?")
+            handle_request_submission(selected_requests_4, request_options_4)
 
-            if selected_requests_4:
-                st.write("**You selected the following options:**")
-                for request in selected_requests_4:
-                    st.write(f"- **{request}**")
-                    st.write(f"  - Comment: {request_options_4[request]}")
-            else:
-                st.warning("Please select at least one option before clicking the button.")
-
-
+# Exercises Tab
 elif selected_tab == "Exercises":
     st.title("Exercises")
     st.write("This is the Exercises page.")
 
+# Role Play Tab
 elif selected_tab == "Role Play":
     st.title("Role Play")
     st.write("This is the Role Play page.")
 
+# References Tab
 elif selected_tab == "References":
     st.title("References")
     st.write("Center for Advanced Research on Language Acquisition (CARLA). (n.d.). Strategies for making requests. University of Minnesota. https://archive.carla.umn.edu/speechacts/requests/strategies.html")
 
+# Thank You Tab
 elif selected_tab == "Thank You & Questions":
     st.title("Thank You & Questions")
     st.write("Thank you for participating! If you have questions, feel free to ask.")
