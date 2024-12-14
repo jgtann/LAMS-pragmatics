@@ -199,38 +199,27 @@ elif selected_tab == "Request Lessons":
     # Embed the HTML
     components.html(html_code, height=400, scrolling=False)
 
+# Raising Awareness Tab
 elif selected_tab == "Raising Awareness":
-    # Initialize session state to track button clicks
-    if "awareness_submitted" not in st.session_state:
-        st.session_state.awareness_submitted = False
+    # Initialize session state to track the button click for hiding the title
+    if "hide_title" not in st.session_state:
+        st.session_state.hide_title = False
 
     # Conditionally display the title
-    if not st.session_state.awareness_submitted:
-        st.title("Raising Awareness")
+    if not st.session_state.hide_title:
+        st.write("Raising Awareness")
 
-        # Inject CSS for default top margin
-        st.markdown(
-            """
-            <style>
-            .css-18e3th9 {
-                padding-top: 2rem;  /* Default top margin */
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-    else:
-        # Reduce top margin when the title is hidden
-        st.markdown(
-            """
-            <style>
-            .css-18e3th9 {
-                padding-top: 1rem;  /* Reduced top margin */
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
+    # Inject CSS to reduce top margin if the title is hidden
+    st.markdown(
+        """
+        <style>
+        .css-18e3th9 {
+            padding-top: 1rem; /* Adjust the value to reduce the top margin */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # Dropdown to choose between situations
     situation = st.selectbox(
@@ -243,14 +232,14 @@ elif selected_tab == "Raising Awareness":
         ],
     )
 
-    # Common logic for submitting requests
+    # Function to handle request submissions
     def handle_request_submission(selected_requests, request_options):
         if selected_requests:
             st.write("**You selected the following options:**")
             for request in selected_requests:
                 st.write(f"- **{request}**")
                 st.write(f"  - Comment: {request_options[request]}")
-            st.session_state.awareness_submitted = True
+            st.session_state.hide_title = True  # Hide the title after button click
         else:
             st.warning("Please select at least one option before clicking the button.")
 
@@ -373,6 +362,7 @@ elif selected_tab == "Raising Awareness":
             if request4:
                 selected_requests_4.append("Request 4: Sorry, I missed that. Could you clarify, please?")
             handle_request_submission(selected_requests_4, request_options_4)
+
 
 # Exercises Tab
 elif selected_tab == "Exercises":
