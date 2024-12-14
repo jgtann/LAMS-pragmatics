@@ -53,10 +53,11 @@ elif selected_tab == "Warm-Up":
         <head>
             <style>
                 #container {{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 20px;
+                    width: 100%;
+                    height: auto; /* Automatically adjust to content */
+                    overflow-y: auto; /* Add scroll if content overflows */
+                    padding: 20px;
+                    box-sizing: border-box;
                 }}
                 .image {{
                     width: 150px;
@@ -86,6 +87,7 @@ elif selected_tab == "Warm-Up":
         </body>
         </html>
         """
+        st.components.v1.html(html_code, height=500, scrolling=True)
     else:
         # Display only the angry pig with animation
         html_code = f"""
@@ -199,43 +201,37 @@ elif selected_tab == "Request Lessons":
 
 elif selected_tab == "Raising Awareness":
     st.title("Raising Awareness")
-    st.write("Situation 1: \
-             You are in the bus. You are very tired after a hard day in the university.\
-             You are trying to have some rest in the bus journey.\
-             Before you dozed off, a man appeared and seated next to you. \
-             He was talking very loudly on the phone for more than 5 minutes, \
-             disturbing your peace. Choose the option below for the \
-             most appropriate response.")
-elif selected_tab == "Raising Awareness":
-    st.title("Raising Awareness")
 
     # Dropdown to choose between situations
     situation = st.selectbox(
         "Choose a situation:",
-        ["Situation 1: Loud Talking on a Bus", "Situation 2: Spilled Coffee in a Café"]
+        [
+            "Situation 1: Loud Talking on a Bus",
+            "Situation 2: Spilled Coffee in a Café",
+            "Situation 3: Requesting Coins for Coffee",
+            "Situation 4: Asking Lecturer to Repeat",
+        ],
     )
 
+    # Situation 1: Loud Talking on a Bus
     if situation == "Situation 1: Loud Talking on a Bus":
-        st.write("**Situation 1:** You are in the bus. You are very tired after a hard day in the university. \
-                 You are trying to have some rest during the bus journey. Before you dozed off, a man appeared \
+        st.write("**Situation 1:** You are on the bus. You are very tired after a hard day at the university. \
+                 You are trying to have some rest during the journey. Before you dozed off, a man appeared \
                  and seated next to you. He was talking very loudly on the phone for more than 5 minutes, \
                  disturbing your peace. Choose the option(s) below for the most appropriate response.")
 
-        # Define lesson options and their corresponding comments
         request_options_1 = {
             "Request 1: Be quiet!": "This response is too direct and may come across as rude.",
             "Request 2: Do you mind lowering the volume?": "This response is polite but slightly informal.",
             "Request 3: Could you lower the volume?": "This is a polite and appropriate way to make a request.",
-            "Request 4: Please lower your volume.": "This response is polite and formal, but a bit commanding."
+            "Request 4: Please lower your volume.": "This response is polite and formal, but a bit commanding.",
         }
 
-        # Checkbox options for Situation 1
         request1 = st.checkbox("Request 1: Be quiet!")
         request2 = st.checkbox("Request 2: Do you mind lowering the volume?")
         request3 = st.checkbox("Request 3: Could you lower the volume?")
         request4 = st.checkbox("Request 4: Please lower your volume.")
 
-        # Submit button to confirm the selection
         if st.button("Submit Situation 1"):
             selected_requests_1 = []
             if request1:
@@ -247,7 +243,6 @@ elif selected_tab == "Raising Awareness":
             if request4:
                 selected_requests_1.append("Request 4: Please lower your volume.")
 
-            # Display comments for selected lessons
             if selected_requests_1:
                 st.write("**You selected the following options:**")
                 for request in selected_requests_1:
@@ -256,26 +251,24 @@ elif selected_tab == "Raising Awareness":
             else:
                 st.warning("Please select at least one option before clicking the button.")
 
+    # Situation 2: Spilled Coffee in a Café
     elif situation == "Situation 2: Spilled Coffee in a Café":
         st.write("**Situation 2:** You are sitting in a café enjoying your drink. A waiter accidentally spills \
                  coffee on your table, some of which gets on your clothes. Choose the option(s) below for the \
                  most appropriate response.")
 
-        # Define lesson options and their corresponding comments for Situation 2
         request_options_2 = {
             "Request 1: Watch where you're going!": "This response is too harsh and might escalate the situation.",
             "Request 2: Could you please clean the table?": "This response is polite and appropriate.",
             "Request 3: Can you offer compensation?": "This response is formal but may seem demanding.",
-            "Request 4: It's okay, accidents happen.": "This response is understanding but does not address the issue."
+            "Request 4: It's okay, accidents happen.": "This response is understanding but does not address the issue.",
         }
 
-        # Checkbox options for Situation 2
         request1 = st.checkbox("Request 1: Watch where you're going!")
         request2 = st.checkbox("Request 2: Could you please clean the table?")
         request3 = st.checkbox("Request 3: Can you offer compensation?")
         request4 = st.checkbox("Request 4: It's okay, accidents happen.")
 
-        # Submit button to confirm the selection
         if st.button("Submit Situation 2"):
             selected_requests_2 = []
             if request1:
@@ -287,12 +280,84 @@ elif selected_tab == "Raising Awareness":
             if request4:
                 selected_requests_2.append("Request 4: It's okay, accidents happen.")
 
-            # Display comments for selected lessons
             if selected_requests_2:
                 st.write("**You selected the following options:**")
                 for request in selected_requests_2:
                     st.write(f"- **{request}**")
                     st.write(f"  - Comment: {request_options_2[request]}")
+            else:
+                st.warning("Please select at least one option before clicking the button.")
+
+    # Situation 3: Requesting Coins for Coffee
+    elif situation == "Situation 3: Requesting Coins for Coffee":
+        st.write("**Situation 3:** You want to buy coffee from the vending machine at the university, \
+                 but you realize you don’t have enough coins. A classmate or friend is standing nearby. \
+                 Choose the option(s) below for the most appropriate response.")
+
+        request_options_3 = {
+            "Request 1: Give me some coins!": "This response is too direct and may seem rude.",
+            "Request 2: Could you lend me some coins for coffee?": "This response is polite and friendly.",
+            "Request 3: Do you mind sharing some coins with me?": "This response is polite but may sound slightly formal.",
+            "Request 4: Can you spare some coins for coffee, please?": "This response is polite and considerate.",
+        }
+
+        request1 = st.checkbox("Request 1: Give me some coins!")
+        request2 = st.checkbox("Request 2: Could you lend me some coins for coffee?")
+        request3 = st.checkbox("Request 3: Do you mind sharing some coins with me?")
+        request4 = st.checkbox("Request 4: Can you spare some coins for coffee, please?")
+
+        if st.button("Submit Situation 3"):
+            selected_requests_3 = []
+            if request1:
+                selected_requests_3.append("Request 1: Give me some coins!")
+            if request2:
+                selected_requests_3.append("Request 2: Could you lend me some coins for coffee?")
+            if request3:
+                selected_requests_3.append("Request 3: Do you mind sharing some coins with me?")
+            if request4:
+                selected_requests_3.append("Request 4: Can you spare some coins for coffee, please?")
+
+            if selected_requests_3:
+                st.write("**You selected the following options:**")
+                for request in selected_requests_3:
+                    st.write(f"- **{request}**")
+                    st.write(f"  - Comment: {request_options_3[request]}")
+            else:
+                st.warning("Please select at least one option before clicking the button.")
+
+    # Situation 4: Asking Lecturer to Repeat
+    elif situation == "Situation 4: Asking Lecturer to Repeat":
+        st.write("**Situation 4:** During a university lecture, the lecturer explains an important concept, \
+                 but you couldn’t catch what they said. Choose the option(s) below for the most appropriate response(s).")
+
+        request_options_4 = {
+            "Request 1: Repeat what you said!": "This response is too direct and may sound rude.",
+            "Request 2: Could you please repeat that?": "This response is polite and appropriate.",
+            "Request 3: I didn’t quite catch that, could you go over it again?": "This response is polite and shows attentiveness.",
+            "Request 4: Sorry, I missed that. Could you clarify, please?": "This response is polite and considerate.",
+        }
+
+        request1 = st.checkbox("Request 1: Repeat what you said!")
+        request2 = st.checkbox("Request 2: Could you please repeat that?")
+        request3 = st.checkbox("Request 3: I didn’t quite catch that, could you go over it again?")
+        request4 = st.checkbox("Request 4: Sorry, I missed that. Could you clarify, please?")
+
+        if st.button("Submit Situation 4"):
+            selected_requests_4 = []
+            if request1:
+                selected_requests_4.append("Request 1: Repeat what you said!")
+            if request2:
+                selected_requests_4.append("Request 2: Could you please repeat that?")
+            if request3:
+                selected_requests_4.append("Request 3: I didn’t quite catch that, could you go over it again?")
+            if request4:
+                selected_requests_4.append("Request 4: Sorry, I missed that. Could you clarify, please?")
+
+            if selected_requests_4:
+                st.write("**You selected the following options:**")
+                for request in selected_requests_4:
+                    st.write(f"- **{request}**")
+                    st.write(f"  - Comment: {request_options_4[request]}")
             else:
                 st.warning("Please select at least one option before clicking the button.")
 
