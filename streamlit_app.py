@@ -21,7 +21,7 @@ if selected_tab == "Cover":
     st.title("How to Make Requests?")
     st.write("...without destroying relationships.")
 
-    # Embed HTML, CSS, and JavaScript for the heart-breaking animation
+    # Embed HTML and CSS for a static broken heart
     st.markdown(
         """
         <style>
@@ -32,106 +32,37 @@ if selected_tab == "Cover":
                 margin: auto;
             }
 
-            /* Complete heart before breaking */
-            .heart {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                transform: rotate(-45deg);
-                top: 50px;
-                left: 50px;
-                animation: break-heart 2s ease forwards;
-                clip-path: none;
-            }
-
-            .heart::before, .heart::after {
-                content: "";
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                border-radius: 50%;
-            }
-
-            .heart::before {
-                top: -50px;
-                left: 0;
-            }
-
-            .heart::after {
-                left: 50px;
-                top: 0;
-            }
-
-            /* Jagged edges for broken pieces */
-            .left-piece, .right-piece {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                transform: rotate(-45deg);
-                opacity: 0;
-            }
-
+            /* Left piece of the broken heart */
             .left-piece {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                transform: rotate(-45deg);
                 top: 50px;
                 left: 50px;
                 clip-path: polygon(0% 0%, 100% 50%, 100% 100%, 0% 100%);
+                box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.3); /* Add depth */
             }
 
+            /* Right piece of the broken heart */
             .right-piece {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                transform: rotate(-45deg);
                 top: 50px;
                 left: 150px;
                 clip-path: polygon(0% 50%, 100% 0%, 100% 100%, 0% 100%);
-            }
-
-            /* Animation to break the heart */
-            @keyframes break-heart {
-                50% {
-                    transform: rotate(-45deg) scale(1.1);
-                }
-                100% {
-                    transform: rotate(-45deg) scale(0);
-                    opacity: 0;
-                }
-            }
-
-            /* Animation for broken pieces to move apart */
-            @keyframes move-left {
-                0% { opacity: 0; transform: translate(0, 0); }
-                100% { opacity: 1; transform: translate(-30px, 10px); }
-            }
-
-            @keyframes move-right {
-                0% { opacity: 0; transform: translate(0, 0); }
-                100% { opacity: 1; transform: translate(30px, 10px); }
+                box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.3); /* Add depth */
             }
         </style>
 
         <div class="heart-container">
-            <div class="heart" id="heart"></div>
-            <div class="left-piece" id="left-piece"></div>
-            <div class="right-piece" id="right-piece"></div>
+            <div class="left-piece"></div>
+            <div class="right-piece"></div>
         </div>
-
-        <script>
-            setTimeout(() => {
-                const heart = document.getElementById("heart");
-                const leftPiece = document.getElementById("left-piece");
-                const rightPiece = document.getElementById("right-piece");
-
-                // Hide the main heart
-                heart.style.display = "none";
-
-                // Show and animate the broken pieces
-                leftPiece.style.opacity = "1";
-                leftPiece.style.animation = "move-left 1.5s ease forwards";
-
-                rightPiece.style.opacity = "1";
-                rightPiece.style.animation = "move-right 1.5s ease forwards";
-            }, 2000);
-        </script>
         """,
         unsafe_allow_html=True,
     )
