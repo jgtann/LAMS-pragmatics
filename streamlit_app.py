@@ -21,7 +21,7 @@ if selected_tab == "Cover":
     st.title("How to Make Requests?")
     st.write("...without destroying relationships.")
 
-    # Embed HTML for heart-breaking animation
+    # Embed HTML, CSS, and JavaScript for the heart-breaking animation
     st.markdown(
         """
         <style>
@@ -32,6 +32,7 @@ if selected_tab == "Cover":
                 margin: auto;
             }
 
+            /* Complete heart before breaking */
             .heart {
                 position: absolute;
                 width: 100px;
@@ -41,6 +42,7 @@ if selected_tab == "Cover":
                 top: 50px;
                 left: 50px;
                 animation: break-heart 2s ease forwards;
+                clip-path: none;
             }
 
             .heart::before, .heart::after {
@@ -62,6 +64,7 @@ if selected_tab == "Cover":
                 top: 0;
             }
 
+            /* Jagged edges for broken pieces */
             .left-piece, .right-piece {
                 position: absolute;
                 width: 100px;
@@ -74,13 +77,16 @@ if selected_tab == "Cover":
             .left-piece {
                 top: 50px;
                 left: 50px;
+                clip-path: polygon(0% 0%, 100% 50%, 100% 100%, 0% 100%);
             }
 
             .right-piece {
                 top: 50px;
                 left: 150px;
+                clip-path: polygon(0% 50%, 100% 0%, 100% 100%, 0% 100%);
             }
 
+            /* Animation to break the heart */
             @keyframes break-heart {
                 50% {
                     transform: rotate(-45deg) scale(1.1);
@@ -91,14 +97,15 @@ if selected_tab == "Cover":
                 }
             }
 
+            /* Animation for broken pieces to move apart */
             @keyframes move-left {
                 0% { opacity: 0; transform: translate(0, 0); }
-                100% { opacity: 1; transform: translate(-100px, 50px); }
+                100% { opacity: 1; transform: translate(-30px, 10px); }
             }
 
             @keyframes move-right {
                 0% { opacity: 0; transform: translate(0, 0); }
-                100% { opacity: 1; transform: translate(100px, 50px); }
+                100% { opacity: 1; transform: translate(30px, 10px); }
             }
         </style>
 
@@ -114,13 +121,15 @@ if selected_tab == "Cover":
                 const leftPiece = document.getElementById("left-piece");
                 const rightPiece = document.getElementById("right-piece");
 
+                // Hide the main heart
                 heart.style.display = "none";
 
+                // Show and animate the broken pieces
                 leftPiece.style.opacity = "1";
-                leftPiece.style.animation = "move-left 2s ease forwards";
+                leftPiece.style.animation = "move-left 1.5s ease forwards";
 
                 rightPiece.style.opacity = "1";
-                rightPiece.style.animation = "move-right 2s ease forwards";
+                rightPiece.style.animation = "move-right 1.5s ease forwards";
             }, 2000);
         </script>
         """,
