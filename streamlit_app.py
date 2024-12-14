@@ -21,84 +21,13 @@ if selected_tab == "Cover":
     st.title("How to Make Requests?")
     st.write("...without destroying relationships.")
 
-    # Embed HTML and CSS for a static broken heart
-    st.markdown(
-        """
-        <style>
-            .heart-container {
-                position: relative;
-                width: 200px;
-                height: 200px;
-                margin: auto;
-            }
+ # Path to the image
+    image_path = "images/broken_heart.png"  # Replace with the actual path to your broken heart image
 
-            /* Left piece of the broken heart */
-            .left-piece {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                transform: rotate(-45deg);
-                top: 50px;
-                left: 30px;
-                clip-path: polygon(0% 0%, 70% 50%, 100% 100%, 0% 100%);
-                border-radius: 50% 0 0 0;
-                box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.3);
-            }
+    # Embed the broken heart image
+    st.image(image_path, caption="", use_container_width=True)
 
-            .left-piece::before {
-                content: "";
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                border-radius: 50%;
-                top: -50px;
-                left: 0;
-            }
-
-            /* Right piece of the broken heart */
-            .right-piece {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                transform: rotate(-45deg);
-                top: 50px;
-                left: 90px;
-                clip-path: polygon(30% 50%, 100% 0%, 100% 100%, 0% 100%);
-                border-radius: 0 50% 0 0;
-                box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.3);
-            }
-
-            .right-piece::before {
-                content: "";
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                border-radius: 50%;
-                top: -50px;
-                left: 0;
-            }
-
-            /* Heart container styling */
-            .heart-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 20px;
-            }
-        </style>
-
-        <div class="heart-container">
-            <div class="left-piece"></div>
-            <div class="right-piece"></div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
+# Warm Up Tab
 elif selected_tab == "Warm-Up":
     # Title of the app
     st.title("Angry Flying Broken Pieces")
