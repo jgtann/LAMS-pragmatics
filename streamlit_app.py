@@ -30,10 +30,11 @@ if selected_tab == "Cover":
 # Warm Up Tab
 elif selected_tab == "Warm-Up":
     # Title of the app
-    st.title("Angry Flying Broken Pieces")
+    st.title("How to Make Requests?")
+    st.write("...without destroying relationships.")
 
     # Description
-    st.write("Watch the angry pig image fly in with chaos!")
+    st.write("")
 
     # Initialize session state to track the current mode
     if "show_happy_pig" not in st.session_state:
@@ -44,8 +45,8 @@ elif selected_tab == "Warm-Up":
         st.session_state.show_happy_pig = not st.session_state.show_happy_pig
 
     # Paths to the images
-    angry_pig_path = Path("/workspaces/LAMS-pragmatics/images/0$P$-angry.png")
-    happy_pig_path = Path("/workspaces/LAMS-pragmatics/images/o$p$.png")
+    angry_pig_path = Path("images/0$P$-angry.png")
+    happy_pig_path = Path("images/o$p$.png")
 
     # Convert images to base64
     angry_pig_base64 = get_base64_image(angry_pig_path)
