@@ -16,12 +16,132 @@ def get_base64_image(image_path):
         base64_str = base64.b64encode(image_file.read()).decode("utf-8")
     return f"data:image/png;base64,{base64_str}"
 
-
-# Render content for each tab
 if selected_tab == "Cover":
     st.title("How to make requests?")
     st.write("...without destroying relationships.")
 
+    # Embed HTML, CSS, and JavaScript for the heart-breaking animation
+    st.markdown(
+        """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                /* Container for the heart */
+                .heart-container {
+                    position: relative;
+                    width: 200px;
+                    height: 200px;
+                    margin: auto;
+                }
+
+                /* Heart shape using two circles and a square */
+                .heart {
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    transform: rotate(-45deg);
+                    top: 50px;
+                    left: 50px;
+                    animation: break-heart 2s ease forwards;
+                }
+
+                .heart::before, .heart::after {
+                    content: "";
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    border-radius: 50%;
+                }
+
+                .heart::before {
+                    top: -50px;
+                    left: 0;
+                }
+
+                .heart::after {
+                    left: 50px;
+                    top: 0;
+                }
+
+                /* Broken pieces after animation */
+                .left-piece, .right-piece {
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    transform: rotate(-45deg);
+                    opacity: 0; /* Initially hidden */
+                }
+
+                .left-piece {
+                    top: 50px;
+                    left: 50px;
+                }
+
+                .right-piece {
+                    top: 50px;
+                    left: 150px;
+                }
+
+                /* Animation to break the heart */
+                @keyframes break-heart {
+                    50% {
+                        transform: rotate(-45deg) scale(1.1);
+                    }
+                    100% {
+                        transform: rotate(-45deg) scale(0);
+                        opacity: 0;
+                    }
+                }
+
+                /* Animation for broken pieces to move apart */
+                @keyframes move-left {
+                    0% { opacity: 0; transform: translate(0, 0); }
+                    100% { opacity: 1; transform: translate(-100px, 50px); }
+                }
+
+                @keyframes move-right {
+                    0% { opacity: 0; transform: translate(0, 0); }
+                    100% { opacity: 1; transform: translate(100px, 50px); }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="heart-container">
+                <div class="heart" id="heart"></div>
+                <div class="left-piece" id="left-piece"></div>
+                <div class="right-piece" id="right-piece"></div>
+            </div>
+
+            <script>
+                // Wait for the animation to complete
+                setTimeout(() => {
+                    // Hide the heart and show the broken pieces
+                    const heart = document.getElementById("heart");
+                    const leftPiece = document.getElementById("left-piece");
+                    const rightPiece = document.getElementById("right-piece");
+
+                    heart.style.display = "none";
+
+                    // Trigger animations for the broken pieces
+                    leftPiece.style.opacity = "1";
+                    leftPiece.style.animation = "move-left 2s ease forwards";
+
+                    rightPiece.style.opacity = "1";
+                    rightPiece.style.animation = "move-right 2s ease forwards";
+                }, 2000);
+            </script>
+        </body>
+        </html>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# Warm Up Tab
 elif selected_tab == "Warm-Up":
     # Title of the app
     st.title("How to make requests?")
