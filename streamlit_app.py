@@ -169,7 +169,7 @@ elif selected_tab == "Request Lessons":
     st.write("Here is an illustration related to the lessons. Please take a look.")
 
     # Option 1: Display the image using st.image
-    image_path = Path("/workspaces/LAMS-pragmatics/images/requestLessons.jpg")  # Replace with your image path
+    image_path = Path("images/requestLessons.jpg")  # Replace with your image path
     st.image(image_path, caption="Illustration for Request Lessons", use_container_width=True)
 
     # Option 2: Display the image using HTML (dynamic embedding)
