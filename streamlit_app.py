@@ -207,6 +207,50 @@ elif selected_tab == "Raising Awareness":
              disturbing your peace. Choose the option(s) below for the \
              most appropriate response.")
 
+elif selected_tab == "Raising Awareness":
+    st.title("Raising Awareness")
+    st.write("Select one or more lessons and click 'Submit' to view the comments.")
+
+    # Define lesson options and their corresponding comments
+    lesson_options = {
+        "Lesson 1: Introduction to Pragmatics": "This lesson covers the basics of pragmatics, including key terminology and examples.",
+        "Lesson 2: Politeness Strategies": "Learn about the various politeness strategies used in different cultures.",
+        "Lesson 3: Requests and Indirect Speech": "This lesson dives into making polite requests and using indirect language effectively.",
+        "Lesson 4: Role of Context in Communication": "Understand how context influences the meaning of communication.",
+        "Lesson 5: Cross-Cultural Pragmatics": "Explore how pragmatics differ across cultures and what to consider in multicultural interactions."
+    }
+
+    # Checkbox options for each lesson
+    lesson1 = st.checkbox("Lesson 1: Introduction to Pragmatics")
+    lesson2 = st.checkbox("Lesson 2: Politeness Strategies")
+    lesson3 = st.checkbox("Lesson 3: Requests and Indirect Speech")
+    lesson4 = st.checkbox("Lesson 4: Role of Context in Communication")
+    lesson5 = st.checkbox("Lesson 5: Cross-Cultural Pragmatics")
+
+    # Submit button to confirm the selection
+    if st.button("Submit"):
+        # Collect selected lessons
+        selected_lessons = []
+        if lesson1:
+            selected_lessons.append("Lesson 1: Introduction to Pragmatics")
+        if lesson2:
+            selected_lessons.append("Lesson 2: Politeness Strategies")
+        if lesson3:
+            selected_lessons.append("Lesson 3: Requests and Indirect Speech")
+        if lesson4:
+            selected_lessons.append("Lesson 4: Role of Context in Communication")
+        if lesson5:
+            selected_lessons.append("Lesson 5: Cross-Cultural Pragmatics")
+
+        # Display comments for selected lessons
+        if selected_lessons:
+            st.write("**You selected the following lessons:**")
+            for lesson in selected_lessons:
+                st.write(f"- **{lesson}**")
+                st.write(f"  - Comment: {lesson_options[lesson]}")
+        else:
+            st.warning("Please select at least one lesson before clicking the button.")
+
 elif selected_tab == "Exercises":
     st.title("Exercises")
     st.write("This is the Exercises page.")
