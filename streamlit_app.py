@@ -313,7 +313,7 @@ elif selected_tab == "Raising Awareness":
             "Request 1: Give me some coins!": "This response is too direct and very rude.",
             "Request 2: Could you lend me some coins for coffee?": "This response is polite and friendly.",
             "Request 3: Do you mind sharing some coins with me?": "This response is polite but no promise of returning the coins.",
-            "Request 4: Can you spare some coins for coffee, please?": "This response is polite and considerate. Polite? Please discuss.",
+            "Request 4: Can you spare some coins for coffee, please?": "Polite? Please judge according to your culture.",
         }
 
         request1 = st.checkbox("Request 1: Give me some coins!")
