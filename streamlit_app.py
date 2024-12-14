@@ -1,14 +1,214 @@
 import streamlit as st
+import streamlit.components.v1 as components
+import base64
+from pathlib import Path
 
-# Title of the app
-st.title("Image Display with Streamlit")
+# Sidebar navigation
+st.sidebar.title("Navigation")
+selected_tab = st.sidebar.radio(
+    "Go to", 
+    ["Cover", "Warm-Up", "Request Lessons", "Raising Awareness", "Exercises", "Role Play", "Thank You & Questions"]
+)
 
-# Description
-st.write("This is a simple app to display an image.")
+# Helper function to convert local image to base64
+def get_base64_image(image_path):
+    with open(image_path, "rb") as image_file:
+        base64_str = base64.b64encode(image_file.read()).decode("utf-8")
+    return f"data:image/png;base64,{base64_str}"
 
-# Display the image
-image_path = "O$P$-angry.png"  # Replace with the path to your image
-st.image(image_path, caption="Your Image Caption", use_column_width=True)
 
-# Additional text
-st.write("Here is the image you've uploaded!")
+# Render content for each tab
+if selected_tab == "Cover":
+    st.title("How to make requests?")
+    st.write("...without destroying relationships.")
+
+elif selected_tab == "Warm-Up":
+    # Title of the app
+    st.title("How to make requests?")
+
+    # Description
+    st.write("...without destroying relationships.")
+
+    # Initialize session state to track the current mode
+    if "show_happy_pig" not in st.session_state:
+        st.session_state.show_happy_pig = False
+
+    # Button to toggle between modes
+    if st.button("Click Me!"):
+        st.session_state.show_happy_pig = not st.session_state.show_happy_pig
+
+    # Paths to the images
+    angry_pig_path = Path("/workspaces/LAMS-pragmatics/images/0$P$-angry.png")
+    happy_pig_path = Path("/workspaces/LAMS-pragmatics/images/o$p$.png")
+
+    # Convert images to base64
+    angry_pig_base64 = get_base64_image(angry_pig_path)
+    happy_pig_base64 = get_base64_image(happy_pig_path)
+
+    # Display the images and arrow if "happy pig" mode is active
+    if st.session_state.show_happy_pig:
+        html_code = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                #container {{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 20px;
+                }}
+                .image {{
+                    width: 150px;
+                    height: 150px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                }}
+                .arrow {{
+                    font-size: 50px;
+                    color: black;
+                    margin: 0 10px;
+                }}
+                #angry-pig {{
+                    background-image: url({angry_pig_base64});
+                }}
+                #happy-pig {{
+                    background-image: url({happy_pig_base64});
+                }}
+            </style>
+        </head>
+        <body>
+            <div id="container">
+                <div id="angry-pig" class="image"></div>
+                <div class="arrow">➡️</div>
+                <div id="happy-pig" class="image"></div>
+            </div>
+        </body>
+        </html>
+        """
+    else:
+        # Display only the angry pig with animation
+        html_code = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                #image-container {{
+                    position: relative;
+                    width: 400px;
+                    height: 400px;
+                    margin: auto;
+                    overflow: hidden;
+                    background-color: #d9d9d9;
+                    border: 2px solid black;
+                }}
+
+                .piece {{
+                    position: absolute;
+                    opacity: 0;
+                    transition: transform 0.3s ease, opacity 0.3s ease; /* Fast chaotic motion */
+                }}
+
+                .piece.final {{
+                    transition: transform 0.6s cubic-bezier(0.3, 1.5, 0.7, 1), opacity 0.6s ease; /* Settling effect */
+                }}
+            </style>
+        </head>
+        <body>
+            <div id="image-container"></div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {{
+                    const container = document.getElementById('image-container');
+                    const imageSrc = "{angry_pig_base64}";  // Embedding the local image
+                    const pieceSize = 100; // Size of each piece
+                    const rows = Math.ceil(container.clientHeight / pieceSize);
+                    const cols = Math.ceil(container.clientWidth / pieceSize);
+
+                    // Create pieces and append them to the container
+                    for (let row = 0; row < rows; row++) {{
+                        for (let col = 0; col < cols; col++) {{
+                            const piece = document.createElement('div');
+                            piece.classList.add('piece');
+                            piece.style.width = pieceSize + 'px';
+                            piece.style.height = pieceSize + 'px';
+                            piece.style.backgroundImage = "url(" + imageSrc + ")";
+                            piece.style.backgroundPosition = "-" + (col * pieceSize) + "px -" + (row * pieceSize) + "px";
+                            piece.style.backgroundSize = (cols * pieceSize) + "px " + (rows * pieceSize) + "px";
+
+                            // Start at random offscreen positions
+                            piece.style.transform = "translate(" + (Math.random() * 800 - 400) + "px, " + (Math.random() * 800 - 400) + "px) rotate(" + (Math.random() * 720 - 360) + "deg)";
+                            container.appendChild(piece);
+
+                            // Add chaotic movement before settling
+                            setTimeout(() => {{
+                                piece.style.opacity = 1;
+                                piece.style.transform = "translate(" + (Math.random() * 100 - 50) + "px, " + (Math.random() * 100 - 50) + "px) rotate(" + (Math.random() * 90 - 45) + "deg)";
+                            }}, Math.random() * 300); // Fast staggered start timing
+
+                            // Final settling into place
+                            setTimeout(() => {{
+                                piece.classList.add('final');
+                                piece.style.transform = "translate(" + (col * pieceSize) + "px, " + (row * pieceSize) + "px) rotate(0deg)";
+                            }}, Math.random() * 600 + 600); // Chaotic motion delay
+                        }}
+                    }}
+                }});
+            </script>
+        </body>
+        </html>
+        """
+
+    # Embed the HTML into Streamlit
+    components.html(html_code, height=450, scrolling=False)
+
+elif selected_tab == "Request Lessons":
+    st.title("Request Lessons")
+
+    # Description
+    st.write("Here is an illustration related to the lessons. Please take a look.")
+
+    # Option 1: Display the image using st.image
+    image_path = Path("/workspaces/LAMS-pragmatics/images/requestLessons.jpg")  # Replace with your image path
+    st.image(image_path, caption="Illustration for Request Lessons", use_container_width=True)
+
+    # Option 2: Display the image using HTML (dynamic embedding)
+    image_base64 = get_base64_image(image_path)
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            #lesson-image {{
+                width: 100%;
+                max-width: 600px;
+                margin: 20px auto;
+                display: block;
+                border: 2px solid black;
+                border-radius: 10px;
+            }}
+        </style>
+    </head>
+    <body>
+        <img id="lesson-image" src="{image_base64}" alt="Request Lessons Image">
+    </body>
+    </html>
+    """
+    # Embed the HTML
+    components.html(html_code, height=400, scrolling=False)
+
+elif selected_tab == "Raising Awareness":
+    st.title("Raising Awareness")
+    st.write("This is the Raising Awareness page.")
+
+elif selected_tab == "Exercises":
+    st.title("Exercises")
+    st.write("This is the Exercises page.")
+
+elif selected_tab == "Role Play":
+    st.title("Role Play")
+    st.write("This is the Role Play page.")
+
+elif selected_tab == "Thank You & Questions":
+    st.title("Thank You & Questions")
+    st.write("Thank you for participating! If you have questions, feel free to ask.")
