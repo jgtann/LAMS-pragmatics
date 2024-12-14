@@ -136,25 +136,24 @@ if selected_tab == "Cover":
         unsafe_allow_html=True,
     )
 
-# Warm Up Tab
 elif selected_tab == "Warm-Up":
     # Title of the app
-    st.title("How to make requests?")
+    st.title("Angry Flying Broken Pieces")
 
     # Description
-    st.write("...without destroying relationships.")
+    st.write("Watch the angry pig image fly in with chaos!")
 
     # Initialize session state to track the current mode
     if "show_happy_pig" not in st.session_state:
         st.session_state.show_happy_pig = False
 
     # Button to toggle between modes
-    if st.button("Click Me!"):
+    if st.button("Change Image"):
         st.session_state.show_happy_pig = not st.session_state.show_happy_pig
 
     # Paths to the images
-    angry_pig_path = Path("images/0$P$-angry.png")
-    happy_pig_path = Path("images/o$p$.png")
+    angry_pig_path = Path("/workspaces/LAMS-pragmatics/images/0$P$-angry.png")
+    happy_pig_path = Path("/workspaces/LAMS-pragmatics/images/o$p$.png")
 
     # Convert images to base64
     angry_pig_base64 = get_base64_image(angry_pig_path)
@@ -168,11 +167,10 @@ elif selected_tab == "Warm-Up":
         <head>
             <style>
                 #container {{
-                    width: 100%;
-                    height: auto; /* Automatically adjust to content */
-                    overflow-y: auto; /* Add scroll if content overflows */
-                    padding: 20px;
-                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 20px;
                 }}
                 .image {{
                     width: 150px;
@@ -202,7 +200,6 @@ elif selected_tab == "Warm-Up":
         </body>
         </html>
         """
-        st.components.v1.html(html_code, height=500, scrolling=True)
     else:
         # Display only the angry pig with animation
         html_code = f"""
@@ -278,6 +275,7 @@ elif selected_tab == "Warm-Up":
 
     # Embed the HTML into Streamlit
     components.html(html_code, height=450, scrolling=False)
+
 
 elif selected_tab == "Request Lessons":
     st.title("Request Lessons")
