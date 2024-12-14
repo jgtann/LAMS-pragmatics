@@ -211,6 +211,7 @@ elif selected_tab == "Role Play":
 
 elif selected_tab == "References":
     st.title("References")
+    st.write("Center for Advanced Research on Language Acquisition (CARLA). (n.d.). Strategies for making requests. University of Minnesota. https://archive.carla.umn.edu/speechacts/requests/strategies.html")
 
 elif selected_tab == "Thank You & Questions":
     st.title("Thank You & Questions")
