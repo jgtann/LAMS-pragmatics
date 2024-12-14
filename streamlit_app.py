@@ -250,7 +250,7 @@ elif selected_tab == "Raising Awareness":
 
     # Situation 1: Loud Talking on a Bus
     if situation == "Situation 1: Loud Talking on a Bus":
-        st.write("**Situation 1:** You are on the bus. You are very tired after a hard day at the university. \
+        st.write("You are on the bus. You are very tired after a hard day at the university. \
                  You are trying to have some rest during the journey. Before you dozed off, a man appeared \
                  and seated next to you. He was talking very loudly on the phone for more than 5 minutes, \
                  disturbing your peace. Choose the option(s) below for the most appropriate response.")
@@ -281,7 +281,7 @@ elif selected_tab == "Raising Awareness":
 
     # Situation 2: Spilled Coffee in a Café
     elif situation == "Situation 2: Spilled Coffee in a Café":
-        st.write("**Situation 2:** You are sitting in a café enjoying your drink. A waiter accidentally spills \
+        st.write("You are sitting in a café enjoying your drink. A waiter accidentally spills \
                  coffee on your table, some of which gets on your clothes. Choose the option(s) below for the \
                  most appropriate response.")
 
@@ -311,7 +311,7 @@ elif selected_tab == "Raising Awareness":
 
     # Situation 3: Requesting Coins for Coffee
     elif situation == "Situation 3: Requesting Coins for Coffee":
-        st.write("**Situation 3:** You want to buy coffee from the vending machine at the university, \
+        st.write("You want to buy coffee from the vending machine at the university, \
                  but you realize you don’t have enough coins. A classmate or friend is standing nearby. \
                  Choose the option(s) below for the most appropriate response.")
 
@@ -341,7 +341,7 @@ elif selected_tab == "Raising Awareness":
 
     # Situation 4: Asking Lecturer to Repeat
     elif situation == "Situation 4: Asking Lecturer to Repeat":
-        st.write("**Situation 4:** During a university lecture, the lecturer explains an important concept, \
+        st.write("During a university lecture, the lecturer explains an important concept, \
                  but you couldn’t catch what they said. Choose the option(s) below for the most appropriate response(s).")
 
         request_options_4 = {
