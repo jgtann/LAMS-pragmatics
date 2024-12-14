@@ -209,11 +209,11 @@ elif selected_tab == "Raising Awareness":
 
     # Define lesson options and their corresponding comments
     lesson_options = {
-        "Lesson 1: Introduction to Pragmatics": "This lesson covers the basics of pragmatics, including key terminology and examples.",
-        "Lesson 2: Politeness Strategies": "Learn about the various politeness strategies used in different cultures.",
-        "Lesson 3: Requests and Indirect Speech": "This lesson dives into making polite requests and using indirect language effectively.",
-        "Lesson 4: Role of Context in Communication": "Understand how context influences the meaning of communication.",
-        "Lesson 5: Cross-Cultural Pragmatics": "Explore how pragmatics differ across cultures and what to consider in multicultural interactions."
+        "Request 1: Be quiet!",
+        "Request 2: Do you mind lower down the volume?",
+        "Request 3: Could you lower down the volume?",
+        "Request 4: Please lower down your volume.",
+
     }
 
     # Checkbox options for each lesson
