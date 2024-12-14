@@ -201,20 +201,17 @@ elif selected_tab == "Request Lessons":
 
 # Raising Awareness Tab
 elif selected_tab == "Raising Awareness":
-    # Initialize session state to track the button click for hiding the title
-    if "hide_title" not in st.session_state:
-        st.session_state.hide_title = False
-
-    # Conditionally display the title
-    if not st.session_state.hide_title:
-        st.write("Raising Awareness")
-
-    # Inject CSS to reduce top margin if the title is hidden
+    # Inject CSS to reduce the top margin
     st.markdown(
         """
         <style>
         .css-18e3th9 {
-            padding-top: 1rem; /* Adjust the value to reduce the top margin */
+            padding-top: 1rem; /* Reduced top margin */
+        }
+        .highlight {
+            background-color: #ffffcc;
+            padding: 5px;
+            border-radius: 5px;
         }
         </style>
         """,
@@ -238,8 +235,10 @@ elif selected_tab == "Raising Awareness":
             st.write("**You selected the following options:**")
             for request in selected_requests:
                 st.write(f"- **{request}**")
-                st.write(f"  - Comment: {request_options[request]}")
-            st.session_state.hide_title = True  # Hide the title after button click
+                st.markdown(
+                    f"<div class='highlight'>Comment: {request_options[request]}</div>",
+                    unsafe_allow_html=True,
+                )
         else:
             st.warning("Please select at least one option before clicking the button.")
 
@@ -311,10 +310,10 @@ elif selected_tab == "Raising Awareness":
                  Choose the option(s) below for the most appropriate response.")
 
         request_options_3 = {
-            "Request 1: Give me some coins!": "This response is too direct and may seem rude.",
+            "Request 1: Give me some coins!": "This response is too direct and very rude.",
             "Request 2: Could you lend me some coins for coffee?": "This response is polite and friendly.",
-            "Request 3: Do you mind sharing some coins with me?": "This response is polite but may sound slightly formal.",
-            "Request 4: Can you spare some coins for coffee, please?": "This response is polite and considerate.",
+            "Request 3: Do you mind sharing some coins with me?": "This response is polite but no promise of returning the coins.",
+            "Request 4: Can you spare some coins for coffee, please?": "This response is polite and considerate. Polite? Please discuss.",
         }
 
         request1 = st.checkbox("Request 1: Give me some coins!")
@@ -362,7 +361,6 @@ elif selected_tab == "Raising Awareness":
             if request4:
                 selected_requests_4.append("Request 4: Sorry, I missed that. Could you clarify, please?")
             handle_request_submission(selected_requests_4, request_options_4)
-
 
 # Exercises Tab
 elif selected_tab == "Exercises":
