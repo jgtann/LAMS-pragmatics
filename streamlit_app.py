@@ -217,26 +217,23 @@ elif selected_tab == "Raising Awareness":
     }
 
     # Checkbox options for each lesson
-    lesson1 = st.checkbox("Lesson 1: Introduction to Pragmatics")
-    lesson2 = st.checkbox("Lesson 2: Politeness Strategies")
-    lesson3 = st.checkbox("Lesson 3: Requests and Indirect Speech")
-    lesson4 = st.checkbox("Lesson 4: Role of Context in Communication")
-    lesson5 = st.checkbox("Lesson 5: Cross-Cultural Pragmatics")
+    lesson1 = st.checkbox("Request 1: Be quiet!")
+    lesson2 = st.checkbox("Request 2: Do you mind lower down the volume?")
+    lesson3 = st.checkbox("Request 3: Could you lower down the volume?")
+    lesson4 = st.checkbox("Please lower down your volume.")
 
     # Submit button to confirm the selection
     if st.button("Submit"):
         # Collect selected lessons
         selected_lessons = []
         if lesson1:
-            selected_lessons.append("Lesson 1: Introduction to Pragmatics")
+            selected_lessons.append("Request 1: Be quiet!")
         if lesson2:
-            selected_lessons.append("Lesson 2: Politeness Strategies")
+            selected_lessons.append("Request 2: Do you mind lower down the volume?")
         if lesson3:
-            selected_lessons.append("Lesson 3: Requests and Indirect Speech")
+            selected_lessons.append("Request 3: Could you lower down the volume?")
         if lesson4:
-            selected_lessons.append("Lesson 4: Role of Context in Communication")
-        if lesson5:
-            selected_lessons.append("Lesson 5: Cross-Cultural Pragmatics")
+            selected_lessons.append("Request 4: Please lower down your volume.")
 
         # Display comments for selected lessons
         if selected_lessons:
