@@ -207,10 +207,6 @@ elif selected_tab == "Raising Awareness":
              disturbing your peace. Choose the option(s) below for the \
              most appropriate response.")
 
-elif selected_tab == "Raising Awareness":
-    st.title("Raising Awareness")
-    st.write("Select one or more lessons and click 'Submit' to view the comments.")
-
     # Define lesson options and their corresponding comments
     lesson_options = {
         "Lesson 1: Introduction to Pragmatics": "This lesson covers the basics of pragmatics, including key terminology and examples.",
