@@ -199,7 +199,13 @@ elif selected_tab == "Request Lessons":
 
 elif selected_tab == "Raising Awareness":
     st.title("Raising Awareness")
-    st.write("This is the Raising Awareness page.")
+    st.write("Situation 1: \
+             You are in the bus. You are very tired after a hard day in the university.\
+             You are trying to have some rest in the bus journey.\
+             Before you dozed off, a man appeared and seated next to you. \
+             He was talking very loudly on the phone for more than 5 minutes, \
+             disturbing your peace. Choose the option(s) below for the \
+             most appropriate response.")
 
 elif selected_tab == "Exercises":
     st.title("Exercises")
