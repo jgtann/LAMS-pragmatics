@@ -253,8 +253,7 @@ elif selected_tab == "Writing Production Activity":
     st.title("Writing Production Activity")
 
     # Description
-    st.write("Take a look at the request strategies in the box. \
-             Match the strategy that corresponds with sentences 1-6.")
+    st.write("Look at the email of a student making a request. Then, label each section.")
 
     # Dropdown to select an image
     image_options = {
@@ -306,38 +305,6 @@ elif selected_tab == "Speaking Production Activity (Student B)":
     width, height = image.size
     reduced_width = int(width * 0.8)  # Reduce width by 20%
     st.image(image, caption="", width=reduced_width)
-
-# Questions to Answer Tab
-elif selected_tab == "Questions to Answer":
-
-    # Path to the image
-    image_path = "images/qns.png"  # Replace with the correct path to your image
-
-    # Helper function to convert local image to base64
-    def get_base64_image(image_path):
-        with open(image_path, "rb") as image_file:
-            base64_str = base64.b64encode(image_file.read()).decode("utf-8")
-        return base64_str
-
-    # Import Image to get dimensions
-    from PIL import Image
-
-    image = Image.open(image_path)
-    width, height = image.size
-    enlarged_width = int(width * 2)  # Enlarge width by 2x
-
-    # Convert image to Base64
-    base64_image = get_base64_image(image_path)
-
-    # Embed the image with custom CSS to centralize and enlarge
-    st.markdown(
-        f"""
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-            <img src="data:image/png;base64,{base64_image}" width="{enlarged_width}" />
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
 # Summary Tab
 elif selected_tab == "Summary":
