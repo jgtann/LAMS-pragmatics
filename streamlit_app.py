@@ -3,16 +3,11 @@ import streamlit.components.v1 as components
 import base64
 from pathlib import Path
 
-
-import streamlit.components.v1 as components
-import base64
-from pathlib import Path
-
 # Sidebar navigation
 st.sidebar.title("Navigation")
 selected_tab = st.sidebar.radio(
     "Go to", 
-    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity: 3 Situations", "Summary", "References", "Thank You & Questions"]
+    ["Cover","Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity: 3 Situations", "Summary", "References", "Thank You & Questions"]
 )
 
 # Helper function to convert local image to base64
@@ -31,18 +26,6 @@ if selected_tab == "Cover":
 
     # Embed the broken heart image
     st.image(image_path, caption="", use_container_width=True)
-
-# Warm-Up Tab
-elif selected_tab == "Warm-Up":
-    # Title of the app
-    st.title("How to Make Requests?")
-    st.write("...without destroying relationships.")
-
-    # Path to the image
-    image_path = "images/warmUp.jpg"  # Replace with the actual path to your image
-
-    # Display a static image with a caption
-    st.image(image_path, caption="", use_container_width=False, width=300)  # Adjust width as needed
 
 # Diagnostic Activity Tab
 elif selected_tab == "Diagnostic Activity":
@@ -388,8 +371,6 @@ elif selected_tab == "Writing Production Activity":
         height=800,
     )
 
-
-
 # Speaking Production Activity Tab
 elif selected_tab == "Speaking Production Activity: 3 Situations":
     st.title("Speaking Production Activity: 3 Situations")
@@ -399,16 +380,21 @@ elif selected_tab == "Speaking Production Activity: 3 Situations":
         Student A acts out Scene A and Student B acts out Scene B. \
             Use the request strategies you have learned.")
 
-    # Path to the image
-    image_path = "images/speakAct1.png"  # Replace with the actual path to your image
+    # Dropdown to select an image
+    image_options = {
+        "Speak Act 1": "images/speakAct1.png",
+        "Speak Act 2": "images/speakAct2.png",
+        "Speak Act 3": "images/speakAct3.png",
+    }
 
-    # Embed the image and reduce its size by 20%
-    from PIL import Image
+    selected_image = st.selectbox(
+        "Choose a scenario:",
+        list(image_options.keys())
+    )
 
-    image = Image.open(image_path)
-    width, height = image.size
-    reduced_width = int(width * 0.8)  # Reduce width by 20%
-    st.image(image, caption="", width=reduced_width)
+    # Display the selected image
+    image_path = image_options[selected_image]
+    st.image(image_path, use_container_width=True)
 
 # Summary Tab
 elif selected_tab == "Summary":
