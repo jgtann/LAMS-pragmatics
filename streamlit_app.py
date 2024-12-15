@@ -403,7 +403,7 @@ elif selected_tab == "Summary":
     st.title("Summary")
 
     # Path to the image
-    image_path = "images/summary.png"  # Replace with the correct path to your image
+    image_path = "images/summary_.png"  # Replace with the correct path to your image
 
     # Helper function to convert local image to base64
     def get_base64_image(image_path):
