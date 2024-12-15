@@ -7,7 +7,7 @@ from pathlib import Path
 st.sidebar.title("Navigation")
 selected_tab = st.sidebar.radio(
     "Go to", 
-    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity (Student A)", "Speaking Production Activity (Student B)", "Summary", "References", "Thank You & Questions"]
+    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity: 3 Situations", "Summary", "References", "Thank You & Questions"]
 )
 
 # Helper function to convert local image to base64
@@ -271,11 +271,13 @@ elif selected_tab == "Writing Production Activity":
     st.image(image_path, use_container_width=True)
 
 # Speaking Production Activity Tab
-elif selected_tab == "Speaking Production Activity (Student A)":
-    st.title("Speaking Production Activity (Student A)")
+elif selected_tab == "Speaking Production Activity: 3 Situations":
+    st.title("Speaking Production Activity: 3 Situations")
 
     # Description
-    st.write("In pairs, role-play each scenario. Use the request strategies you have learned.")
+    st.write("In pairs, role-play the presented scenario. \
+        Student A acts out Scene A and Student B acts out Scene B. \
+            Use the request strategies you have learned.")
 
     # Path to the image
     image_path = "images/speaking_3.png"  # Replace with the actual path to your image
