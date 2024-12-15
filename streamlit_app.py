@@ -358,7 +358,7 @@ elif selected_tab == "Summary":
 # References Tab
 elif selected_tab == "References":
     st.title("References")
-    st.write("Center for Advanced Research on Language Acquisition (CARLA). (n.d.). Strategies for making requests. University of Minnesota. https://archive.carla.umn.edu/speechacts/requests/strategies.html \
+    st.write("Center for Advanced Research on Language Acquisition (CARLA). (n.d.). Strategies for making requests. University of Minnesota. https://archive.carla.umn.edu/speechacts/requests/strategies.html \n\n \
         Brock, M. N., & Nagasaka, Y. (2005). Teaching Pragmatics in the EFL Classroom? SURE You Can! TESL Reporter, 38(1), 17-26.")
 
 # Thank You Tab
