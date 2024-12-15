@@ -3,6 +3,11 @@ import streamlit.components.v1 as components
 import base64
 from pathlib import Path
 
+
+import streamlit.components.v1 as components
+import base64
+from pathlib import Path
+
 # Sidebar navigation
 st.sidebar.title("Navigation")
 selected_tab = st.sidebar.radio(
@@ -249,26 +254,141 @@ elif selected_tab == "Awareness Activity":
             handle_request_submission(selected_requests_4, request_options_4)
 
 # Writing Production Activity Tab
+
 elif selected_tab == "Writing Production Activity":
     st.title("Writing Production Activity")
 
-    # Description
+    # Title
     st.write("Look at the email of a student making a request. Then, label each section.")
 
-    # Dropdown to select an image
-    image_options = {
-        "W1": "images/w1.png",
-        "W2": "images/w2.png",
-    }
+    # Embed HTML/CSS/JS using components.html
+    components.html(
+        """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Drag and Drop</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .container {
+                    max-width: 700px;
+                    margin: 0 auto;
+                }
+                .email-container {
+                    border: 2px solid #ccc;
+                    padding: 10px;
+                    background-color: #fafafa;
+                    line-height: 1.8;
+                    margin-top: 20px;
+                }
+                .blank {
+                    display: inline-block;
+                    width: 150px;
+                    height: 20px;
+                    margin-left: 10px;
+                    border: 2px dashed #aaa;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #555;
+                    background-color: #f9f9f9;
+                    cursor: pointer;
+                }
+                .labels-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                }
+                .label {
+                    background-color: #ffcc99;
+                    padding: 5px 10px;
+                    border: 1px solid #888;
+                    border-radius: 5px;
+                    cursor: grab;
+                    font-weight: bold;
+                }
+                .blank.hover {
+                    background-color: #e0f7fa;
+                    border-color: #00796b;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <!-- Draggable Labels -->
+                <div class="labels-container">
+                    <div class="label" draggable="true" id="salutation">salutation</div>
+                    <div class="label" draggable="true" id="apology">apology</div>
+                    <div class="label" draggable="true" id="request">request</div>
+                    <div class="label" draggable="true" id="suggestion">suggestion</div>
+                    <div class="label" draggable="true" id="consideration">consideration</div>
+                    <div class="label" draggable="true" id="closing">closing</div>
+                    <div class="label" draggable="true" id="promise">promise</div>
+                    <div class="label" draggable="true" id="excuse">excuse</div>
+                </div>
 
-    selected_image = st.selectbox(
-        "Choose a scenario:",
-        list(image_options.keys())
+                <!-- Email Content -->
+                <div class="email-container">
+                    <p>Dear Professor, I hope you are doing well. <span class="blank" id="b1"></span></p>
+                    <p>I am writing to request for an extension of the assignment due on Monday. <span class="blank" id="b2"></span></p>
+                    <p>Unfortunately, I am facing personal issues that are affecting my ability to complete this assignment. <span class="blank" id="b3"></span></p>
+                    <p>I apologise for any inconvenience caused. <span class="blank" id="b4"></span></p>
+                    <p>I would be grateful if you could extend it until Thursday at the latest to submit the assignment. <span class="blank" id="b5"></span></p>
+                    <p>I am committed to submitting a quality assignment that fits the standards established at the beginning of the course. <span class="blank" id="b6"></span></p>
+                    <p>Hoping for your kind consideration to my request. <span class="blank" id="b7"></span></p>
+                    <p>Sincerely, Student. <span class="blank" id="b8"></span></p>
+                </div>
+            </div>
+
+            <script>
+                const blanks = document.querySelectorAll('.blank');
+                const labels = document.querySelectorAll('.label');
+
+                // Add dragstart event to each label
+                labels.forEach(label => {
+                    label.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text', e.target.id);
+                    });
+                });
+
+                // Add drop events to blanks
+                blanks.forEach(blank => {
+                    blank.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        blank.classList.add('hover');
+                    });
+
+                    blank.addEventListener('dragleave', () => {
+                        blank.classList.remove('hover');
+                    });
+
+                    blank.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const draggedLabelId = e.dataTransfer.getData('text');
+                        const draggedLabel = document.getElementById(draggedLabelId);
+
+                        if (draggedLabel && !blank.textContent) {
+                            blank.textContent = draggedLabel.textContent;
+                            draggedLabel.style.display = 'none';
+                            blank.classList.remove('hover');
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>
+        """,
+        height=800,
     )
 
-    # Display the selected image
-    image_path = image_options[selected_image]
-    st.image(image_path, use_container_width=True)
+
 
 # Speaking Production Activity Tab
 elif selected_tab == "Speaking Production Activity: 3 Situations":
@@ -280,25 +400,7 @@ elif selected_tab == "Speaking Production Activity: 3 Situations":
             Use the request strategies you have learned.")
 
     # Path to the image
-    image_path = "images/speaking_3.png"  # Replace with the actual path to your image
-
-    # Embed the image and reduce its size by 20%
-    from PIL import Image
-
-    image = Image.open(image_path)
-    width, height = image.size
-    reduced_width = int(width * 0.8)  # Reduce width by 20%
-    st.image(image, caption="", width=reduced_width)
-
-# Speaking Production Activity Tab
-elif selected_tab == "Speaking Production Activity (Student B)":
-    st.title("Speaking Production Activity (Student B)")
-
-    # Description
-    st.write("In pairs, role-play each scenario. Use the request strategies you have learned.")
-
-    # Path to the image
-    image_path = "images/speaking_B.png"  # Replace with the actual path to your image
+    image_path = "images/speakAct1.png"  # Replace with the actual path to your image
 
     # Embed the image and reduce its size by 20%
     from PIL import Image
