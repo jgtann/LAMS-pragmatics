@@ -7,7 +7,7 @@ from pathlib import Path
 st.sidebar.title("Navigation")
 selected_tab = st.sidebar.radio(
     "Go to", 
-    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity (Student A)", "Speaking Production Activity (Student B)", "Questions to Answer", "Summary", "References", "Thank You & Questions"]
+    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity (Student A)", "Speaking Production Activity (Student B)", "Summary", "References", "Thank You & Questions"]
 )
 
 # Helper function to convert local image to base64
