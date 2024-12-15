@@ -7,7 +7,7 @@ from pathlib import Path
 st.sidebar.title("Navigation")
 selected_tab = st.sidebar.radio(
     "Go to", 
-    ["Cover", "Warm-Up", "Request Lessons", "Raising Awareness", "Exercises", "Role Play", "References", "Thank You & Questions"]
+    ["Cover", "Warm-Up", "Diagnostic Activity", "Strategies Activity", "Awareness Activity", "Writing Production Activity", "Speaking Production Activity (Student A)", "Speaking Production Activity (Student B)", "Questions to Answer", "Summary", "References", "Thank You & Questions"]
 )
 
 # Helper function to convert local image to base64
@@ -27,186 +27,66 @@ if selected_tab == "Cover":
     # Embed the broken heart image
     st.image(image_path, caption="", use_container_width=True)
 
-# Warm Up Tab
+# Warm-Up Tab
 elif selected_tab == "Warm-Up":
     # Title of the app
     st.title("How to Make Requests?")
     st.write("...without destroying relationships.")
 
-    # Description
-    st.write("")
+    # Path to the image
+    image_path = "images/warmUp.jpg"  # Replace with the actual path to your image
 
-    # Initialize session state to track the current mode
-    if "show_happy_pig" not in st.session_state:
-        st.session_state.show_happy_pig = False
+    # Display a static image with a caption
+    st.image(image_path, caption="", use_container_width=False, width=300)  # Adjust width as needed
 
-    # Button to toggle between modes
-    if st.button("Change Image"):
-        st.session_state.show_happy_pig = not st.session_state.show_happy_pig
-
-    # Paths to the images
-    angry_pig_path = Path("images/0$P$-angry.png")
-    happy_pig_path = Path("images/o$p$.png")
-
-    # Convert images to base64
-    angry_pig_base64 = get_base64_image(angry_pig_path)
-    happy_pig_base64 = get_base64_image(happy_pig_path)
-
-    # Display the images and arrow if "happy pig" mode is active
-    if st.session_state.show_happy_pig:
-        html_code = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                #container {{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 20px;
-                }}
-                .image {{
-                    width: 150px;
-                    height: 150px;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                }}
-                .arrow {{
-                    font-size: 50px;
-                    color: black;
-                    margin: 0 10px;
-                }}
-                #angry-pig {{
-                    background-image: url({angry_pig_base64});
-                }}
-                #happy-pig {{
-                    background-image: url({happy_pig_base64});
-                }}
-            </style>
-        </head>
-        <body>
-            <div id="container">
-                <div id="angry-pig" class="image"></div>
-                <div class="arrow">➡️</div>
-                <div id="happy-pig" class="image"></div>
-            </div>
-        </body>
-        </html>
-        """
-    else:
-        # Display only the angry pig with animation
-        html_code = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                #image-container {{
-                    position: relative;
-                    width: 400px;
-                    height: 400px;
-                    margin: auto;
-                    overflow: hidden;
-                    background-color: #d9d9d9;
-                    border: 2px solid black;
-                }}
-
-                .piece {{
-                    position: absolute;
-                    opacity: 0;
-                    transition: transform 0.3s ease, opacity 0.3s ease; /* Fast chaotic motion */
-                }}
-
-                .piece.final {{
-                    transition: transform 0.6s cubic-bezier(0.3, 1.5, 0.7, 1), opacity 0.6s ease; /* Settling effect */
-                }}
-            </style>
-        </head>
-        <body>
-            <div id="image-container"></div>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {{
-                    const container = document.getElementById('image-container');
-                    const imageSrc = "{angry_pig_base64}";  // Embedding the local image
-                    const pieceSize = 100; // Size of each piece
-                    const rows = Math.ceil(container.clientHeight / pieceSize);
-                    const cols = Math.ceil(container.clientWidth / pieceSize);
-
-                    // Create pieces and append them to the container
-                    for (let row = 0; row < rows; row++) {{
-                        for (let col = 0; col < cols; col++) {{
-                            const piece = document.createElement('div');
-                            piece.classList.add('piece');
-                            piece.style.width = pieceSize + 'px';
-                            piece.style.height = pieceSize + 'px';
-                            piece.style.backgroundImage = "url(" + imageSrc + ")";
-                            piece.style.backgroundPosition = "-" + (col * pieceSize) + "px -" + (row * pieceSize) + "px";
-                            piece.style.backgroundSize = (cols * pieceSize) + "px " + (rows * pieceSize) + "px";
-
-                            // Start at random offscreen positions
-                            piece.style.transform = "translate(" + (Math.random() * 800 - 400) + "px, " + (Math.random() * 800 - 400) + "px) rotate(" + (Math.random() * 720 - 360) + "deg)";
-                            container.appendChild(piece);
-
-                            // Add chaotic movement before settling
-                            setTimeout(() => {{
-                                piece.style.opacity = 1;
-                                piece.style.transform = "translate(" + (Math.random() * 100 - 50) + "px, " + (Math.random() * 100 - 50) + "px) rotate(" + (Math.random() * 90 - 45) + "deg)";
-                            }}, Math.random() * 300); // Fast staggered start timing
-
-                            // Final settling into place
-                            setTimeout(() => {{
-                                piece.classList.add('final');
-                                piece.style.transform = "translate(" + (col * pieceSize) + "px, " + (row * pieceSize) + "px) rotate(0deg)";
-                            }}, Math.random() * 600 + 600); // Chaotic motion delay
-                        }}
-                    }}
-                }});
-            </script>
-        </body>
-        </html>
-        """
-
-    # Embed the HTML into Streamlit
-    components.html(html_code, height=450, scrolling=False)
-
-
-elif selected_tab == "Request Lessons":
-    st.title("Request Lessons")
+# Diagnostic Activity Tab
+elif selected_tab == "Diagnostic Activity":
+    st.title("Diagnostic Activity")
 
     # Description
-    st.write("Here is an illustration related to the lessons. Please take a look.")
+    st.write("Read each situation and make a request as you usually do.")
 
-    # Option 1: Display the image using st.image
-    image_path = Path("images/requestLessons.jpg")  # Replace with your image path
-    st.image(image_path, caption="Illustration for Request Lessons", use_container_width=True)
+    # Dropdown to select an image
+    image_options = {
+        "D1": "images/d1.png",
+        "D2": "images/d2.png",
+        "D3": "images/d3.png",
+    }
 
-    # Option 2: Display the image using HTML (dynamic embedding)
-    image_base64 = get_base64_image(image_path)
-    html_code = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            #lesson-image {{
-                width: 100%;
-                max-width: 600px;
-                margin: 30px auto;
-                display: block;
-                border: 2px solid black;
-                border-radius: 10px;
-            }}
-        </style>
-    </head>
-    <body>
-        <img id="lesson-image" src="{image_base64}" alt="Request Lessons Image">
-    </body>
-    </html>
-    """
-    # Embed the HTML
-    components.html(html_code, height=400, scrolling=False)
+    selected_image = st.selectbox(
+        "Choose a scenario:",
+        list(image_options.keys())
+    )
 
-# Raising Awareness Tab
-elif selected_tab == "Raising Awareness":
+    # Display the selected image
+    image_path = image_options[selected_image]
+    st.image(image_path, use_container_width=True)
+
+# Strategies Activity Tab
+elif selected_tab == "Strategies Activity":
+    st.title("Strategies Activity")
+
+    # Description
+    st.write("Take a look at the request strategies in the box. \
+             Match the strategy that corresponds with sentences 1-6.")
+
+    # Dropdown to select an image
+    image_options = {
+        "S1": "images/s1.png",
+        "S2": "images/s2.png",
+    }
+
+    selected_image = st.selectbox(
+        "Choose a scenario:",
+        list(image_options.keys())
+    )
+
+    # Display the selected image
+    image_path = image_options[selected_image]
+    st.image(image_path, use_container_width=True)
+
+# Awareness Activity Tab
+elif selected_tab == "Awareness Activity":
     # Inject CSS to reduce the top margin
     st.markdown(
         """
@@ -368,15 +248,145 @@ elif selected_tab == "Raising Awareness":
                 selected_requests_4.append("Request 4: Sorry, I missed that. Could you clarify, please?")
             handle_request_submission(selected_requests_4, request_options_4)
 
-# Exercises Tab
-elif selected_tab == "Exercises":
-    st.title("Exercises")
-    st.write("This is the Exercises page.")
+# Writing Production Activity Tab
+elif selected_tab == "Writing Production Activity":
+    st.title("Writing Production Activity")
 
-# Role Play Tab
-elif selected_tab == "Role Play":
-    st.title("Role Play")
-    st.write("This is the Role Play page.")
+    # Description
+    st.write("Take a look at the request strategies in the box. \
+             Match the strategy that corresponds with sentences 1-6.")
+
+    # Dropdown to select an image
+    image_options = {
+        "W1": "images/w1.png",
+        "W2": "images/w2.png",
+    }
+
+    selected_image = st.selectbox(
+        "Choose a scenario:",
+        list(image_options.keys())
+    )
+
+    # Display the selected image
+    image_path = image_options[selected_image]
+    st.image(image_path, use_container_width=True)
+
+# Speaking Production Activity Tab
+elif selected_tab == "Speaking Production Activity (Student A)":
+    st.title("Speaking Production Activity (Student A)")
+
+    # Description
+    st.write("In pairs, role-play each scenario. Use the request strategies you have learned.")
+
+    # Path to the image
+    image_path = "images/speaking_3.png"  # Replace with the actual path to your image
+
+    # Embed the image and reduce its size by 20%
+    from PIL import Image
+
+    image = Image.open(image_path)
+    width, height = image.size
+    reduced_width = int(width * 0.8)  # Reduce width by 20%
+    st.image(image, caption="", width=reduced_width)
+
+# Speaking Production Activity Tab
+elif selected_tab == "Speaking Production Activity (Student B)":
+    st.title("Speaking Production Activity (Student B)")
+
+    # Description
+    st.write("In pairs, role-play each scenario. Use the request strategies you have learned.")
+
+    # Path to the image
+    image_path = "images/speaking_B.png"  # Replace with the actual path to your image
+
+    # Embed the image and reduce its size by 20%
+    from PIL import Image
+
+    image = Image.open(image_path)
+    width, height = image.size
+    reduced_width = int(width * 0.8)  # Reduce width by 20%
+    st.image(image, caption="", width=reduced_width)
+
+# Questions to Answer Tab
+elif selected_tab == "Questions to Answer":
+
+    # Path to the image
+    image_path = "images/qns.png"  # Replace with the correct path to your image
+
+    # Helper function to convert local image to base64
+    def get_base64_image(image_path):
+        with open(image_path, "rb") as image_file:
+            base64_str = base64.b64encode(image_file.read()).decode("utf-8")
+        return base64_str
+
+    # Import Image to get dimensions
+    from PIL import Image
+
+    image = Image.open(image_path)
+    width, height = image.size
+    enlarged_width = int(width * 2)  # Enlarge width by 2x
+
+    # Convert image to Base64
+    base64_image = get_base64_image(image_path)
+
+    # Embed the image with custom CSS to centralize and enlarge
+    st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <img src="data:image/png;base64,{base64_image}" width="{enlarged_width}" />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# Summary Tab
+elif selected_tab == "Summary":
+
+    # Title
+    st.title("Summary")
+
+    # Path to the image
+    image_path = "images/summary.png"  # Replace with the correct path to your image
+
+    # Helper function to convert local image to base64
+    def get_base64_image(image_path):
+        with open(image_path, "rb") as image_file:
+            base64_str = base64.b64encode(image_file.read()).decode("utf-8")
+        return base64_str
+
+    # Import Image to get dimensions
+    from PIL import Image
+
+    image = Image.open(image_path)
+    width, height = image.size
+
+    # Reduced and enlarged dimensions
+    reduced_width = int(width * 0.9)  # Reduce by 10%
+    enlarged_width = int(width * 1.2)  # Enlarge by 20%
+
+    # State management for image size
+    if "enlarged" not in st.session_state:
+        st.session_state.enlarged = False  # Default to reduced size
+
+    # Button to toggle image size
+    if st.button("Enlarge Image" if not st.session_state.enlarged else "Reduce Image"):
+        st.session_state.enlarged = not st.session_state.enlarged
+
+    # Choose dimensions based on state
+    current_width = enlarged_width if st.session_state.enlarged else reduced_width
+
+    # Convert image to Base64 for embedding
+    base64_image = get_base64_image(image_path)
+
+    # Embed the image with custom CSS to centralize and resize
+    st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <img src="data:image/png;base64,{base64_image}" width="{current_width}" />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # References Tab
 elif selected_tab == "References":
@@ -387,3 +397,9 @@ elif selected_tab == "References":
 elif selected_tab == "Thank You & Questions":
     st.title("Thank You & Questions")
     st.write("Thank you for participating! If you have questions, feel free to ask.")
+
+     # Path to the image
+    image_path = "images/QRlink.png"  # Replace with the actual path to your image
+
+    # Embed the image with reduced size and caption
+    st.image(image_path, caption="Scan this QR code for link to this website.", width=200)  # Adjust width as needed
